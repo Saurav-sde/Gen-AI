@@ -1,0 +1,117 @@
+Q. Does LLM MOdel like chatGPT calculates 2 + 2 or mathematical calculation?
+Ans:- chatGPT doesn't calculates it as it wroks on the principle of prediction, it simply predict the next token. The speciality about all this LLM MOdel is that its prediction is very much accurate. 
+
+LLM doesn't have any calculation power
+It can't run any code
+
+it only predicts about the data in which it is trained.
+it doesn't give the answer of questions like what is the temperature of delhi today??
+
+when we ask 2+2 to chatGPT it gives us the answer 4 
+now i ask will you calculated it without any external tool?
+ans:- I don't "compute" it step by step like a calculator. Instead, I’ve seen millions of examples in my training where "2 + 2 = 4" appears, so I predict that the answer is likely to be "4".  this ans is given by chatGPT
+
+
+Q. 2367283492409238 * 37532985290280 , as a pure LLM model answer me without any external tool?
+ChatGPT said:
+As a pure LLM, I can predict the result based on patterns seen in training data — but for very large numbers like: 2367283492409238 × 37532985290280
+There’s a high chance of error in the predicted result, because:
+These exact large-number multiplications are extremely rare in training data.
+LLMs don't perform step-by-step arithmetic internally.
+I don't actually "multiply" — I generate what looks like a correct answer.
+
+So to calculates this huge number chatGPT uses External tool?
+chatGPT first generates its python code and as we know it can't run this code so it gives this code to external tool which runs the python code and this tool returns the answer to chatGPT, then chatGPT gives us the answer.
+
+
+Q. As a pure LLM model will you give the today's temperature of delhi without any external help
+ChatGPT said:
+As a pure LLM model without external tools, I cannot give you the actual current temperature of Delhi.
+Here's why:
+I don’t have real-time access to weather data.
+My knowledge is static, last updated in 2024.
+I can predict typical June weather in Delhi (e.g., 40–45°C, hot and dry), but not today's exact temperature.
+If you want the current, accurate temperature, I can fetch it using a tool (like the web tool). Just say the word.
+
+so to caulaulate the current tempearute it uses external help that is web search here.
+
+
+// code to chat with Gemini model
+const { GoogleGenAI } = require("@google/genai");
+require('dotenv').config();
+
+const ai = new GoogleGenAI({apiKey:process.env.GEMINI_API_KEY});
+
+const main = async () => {
+    const response = await ai.models.generateContent({
+        model:"gemini-2.0-flash",
+        contents: "Hey I am Saurav"
+    });
+    console.log(response.text);
+}
+
+main(); 
+
+when i ask hey i am saurav?
+Hi Saurav, nice to meet you! How can I help you today?
+
+when i ask What is my name ?
+As a large language model, I don't have access to personal information, including your name. You haven't told me your name, so I don't know it.
+
+so here we can see chatGPT doesn't know my name, this is why it need context, but we can say that i have given my name in previous question, so for that time it know my Name but for follow up questions i haven't mention anywhere my name so it doesn't know
+
+But in chaGPT when i say hey i am Saurav and in next question i ask what is my name , it answer my name. This is why beacuse it sends all the previous chat(both question and answer) to the LLM model so that it has context to provide me the answer accurately
+
+How can we achieve it using code
+const { GoogleGenAI } = require("@google/genai");
+const readlineSync = require('readline-sync'); // for taking input from terminal
+require('dotenv').config();
+const ai = new GoogleGenAI({apiKey:process.env.GEMINI_API_KEY});
+const history = []; // maintain the history, so i can provide the context
+
+const chatting = async (userProblem) => {
+    history.push({
+        role:'user', parts:[{text:userProblem}]
+    });
+
+    const response = await ai.models.generateContent({
+        model:"gemini-2.0-flash",
+        contents: history
+    });
+
+    history.push({
+        role:'model', parts:[{text:response.text}]
+    })
+    console.log(response.text);
+}
+
+async function main(){
+    const userProblem = readlineSync.question("Ask me Anything --> ");
+    await chatting(userProblem);
+    main();
+}
+main(); 
+
+// Here we are maintaing the history manually 
+// other way , maintain history automatically
+const { GoogleGenAI } = require("@google/genai");
+const readlineSync = require('readline-sync'); // for taking input from terminal
+require('dotenv').config();
+const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY});
+
+const chat = ai.chats.create({
+    model: "gemini-2.0-flash",
+    history: []
+});
+
+async function main(){
+    const userProblem = readlineSync.question("Ask me Anything --> ");
+    const response = await chat.sendMessage({message: userProblem});
+    console.log(response.text);
+    main();
+}
+
+main(); 
+
+
+When we talk with LLM model like this then it doesn't has external tools
