@@ -1,0 +1,48 @@
+Q. When We ask ChatGPT Hi, How are you? Then How the ChatGPT is giving answer??
+Ans:- We can Think that may be it has stored any answer corresponding to this question in the db, now whenever this question is asked ,chtagpt will give this answer simply by searching in the db.
+
+No, ChatGPT doesn't work like this, as we know that we have infinite number of questions it is impossible to store answers corresponding to all the questions in the db, 
+Also we write wrong english some time instead of hi, how are you? we wrote hi how is you?, also we misspelt sometime how r you?
+When we give our code to chatgpt to find errors in my code, chatgpt corrects my code.
+if it is storing answer corresponding to the question in db then how did it stored my wrong code??
+We have also seen that for same question ChatGPT gives different answers
+So, By All this analysis we can say that chatgpt doesn't follows this model or principle
+
+
+Q. Can we give answer to the problem that we have never seen before?
+Ans:- The answer is YES, as a human we can give the answer of the problem that we have never seen before
+10000,11000,12000.... find next number :- answer is 13000
+We get this by using our reasoning or we can say our analytical mind.
+
+We have used the same principle while creating ChatGPT
+
+our chatgpt model give the answers in which it is trained, suppose we have trained it on stock market then now it can give all the answers regarding stock market. Just like Human if we read 500 books of stock market then we can also give all the answers regarding stock market
+
+
+Q. How chatgpt is generating the answer?
+Ans:- It is simply predicating the next word.
+when we ask hi, how are you
+it takes hi, how are you and generate I 
+then it takes hi, how are you I and generate am
+then it takes hi,how are you I am and generate fine
+then gives output i am fine
+
+Hi, How are you? ---> Hi, How are you? i
+Hi, How are you? i --->  Hi, How are you? i am
+Hi, How are you? i am --> Hi, How are you? i am fine
+
+Q. How it is predicting the next word?
+Ans:- Here it do Tokenization, it generates token , how it is generating tokens depends model to model. for our understanding, lets assume it create a token of each word, the benfit of token is that now it can generate a number corresponding to each token , and this is prebuilt
+Hi - 36
+How - 29
+are - 1231
+you - 320
+whenever Hi came it generate token to it and always assign 36 to it
+
+Now [36, 29, 1231, 320] goes to chatGPT, and chatGPT finds out the pattern corresponding to this number and generates the next number, suppose 230 is generated which corresponds to I
+Now [36, 29, 1231, 320, 230] goes to chatGPT and generated 78 , 78 --> am
+Now [36, 29, 1231, 320, 230] goes to chatGPT and generated 12, 12 --> fine
+
+
+GenAI means Generative AI, means if it doesn't seen any question before it will generate the answer
+GPT -> Generative Pretrained Transformer
